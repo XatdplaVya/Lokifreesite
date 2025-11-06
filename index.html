@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Example</title>
+    <style>
+        /* 1. နောက်ခံ (Background) ကို အရင်ပြင်ဆင်ပါ */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to top right, #ffafbd, #ffc3a0);
+            /* ဒါမှမဟုတ် နောက်ခံပုံတစ်ပုံ ထားလို့လည်းရပါတယ် */
+            /* background-image: url('your-background-image.jpg'); */
+            /* background-size: cover; */
+        }
+
+        /* 2. Glassmorphism Card ကို ဒီလိုရေးပါတယ် */
+        .glass-card {
+            width: 300px;
+            padding: 30px;
+            
+            /* --- အဓိက ကျတဲ့ ၃ ကြောင်း --- */
+            background: rgba(255, 255, 255, 0.2); /* ဖန်သားလို နည်းနည်း ပွင့်နေတဲ့ effect */
+            backdrop-filter: blur(10px);          /* နောက်ခံကို ဝါးစေတဲ့ effect */
+            border-radius: 15px;                  /* ဘေးဘောင် အလုံး */
+            
+            /* --- အလှဆင်ဖို့ (Optional) --- */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            color: #333; /* စာသားအရောင် */
+        }
+
+        /* --- Card ထဲက Content တွေ --- */
+        .glass-card h2 {
+            margin-top: 0;
+            color: #111;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        <h2>GitHub သို့ Upload လုပ်မည်</h2>
+        <p>GitHub လမ်းကြောင်း:</p>
+        <input type="text" placeholder="ဖိုင်ရွေးချယ်ပြီးမှ ပေါ်မည်" style="width: 100%;">
+        <button style="width: 100%; margin-top: 15px; padding: 10px;">Upload လုပ်မည်</button>
+    </div>
+
+</body>
+</html>
