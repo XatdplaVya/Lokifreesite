@@ -3,52 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glassmorphism Example</title>
-    <style>
-        /* 1. နောက်ခံ (Background) ကို အရင်ပြင်ဆင်ပါ */
+    <title>EXPGEN</title>
+    <link rel="stylesheet" href="../style.css?v=2025.110">
+        <style>
+        /* When a video background is provided we disable the default background image and define
+           styling for the video element. The video covers the entire viewport and sits behind
+           the page content. */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(to top right, #ffafbd, #ffc3a0);
-            /* ဒါမှမဟုတ် နောက်ခံပုံတစ်ပုံ ထားလို့လည်းရပါတယ် */
-            /* background-image: url('your-background-image.jpg'); */
-            /* background-size: cover; */
+            background: none;
         }
-
-        /* 2. Glassmorphism Card ကို ဒီလိုရေးပါတယ် */
-        .glass-card {
-            width: 300px;
-            padding: 30px;
-            
-            /* --- အဓိက ကျတဲ့ ၃ ကြောင်း --- */
-            background: rgba(255, 255, 255, 0.2); /* ဖန်သားလို နည်းနည်း ပွင့်နေတဲ့ effect */
-            backdrop-filter: blur(10px);          /* နောက်ခံကို ဝါးစေတဲ့ effect */
-            border-radius: 15px;                  /* ဘေးဘောင် အလုံး */
-            
-            /* --- အလှဆင်ဖို့ (Optional) --- */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            color: #333; /* စာသားအရောင် */
+        .bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;
         }
-
-        /* --- Card ထဲက Content တွေ --- */
-        .glass-card h2 {
-            margin-top: 0;
-            color: #111;
-        }
-
     </style>
+    
 </head>
 <body>
+        <!-- Insert the background video element. It plays automatically, loops and is muted to avoid
+         unexpected audio for visitors. The source type is derived from the file extension. -->
+    <video autoplay loop muted playsinline preload="none" class="bg-video">
+        <source src="../uploads/video_1762470200.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Inject background music on the main page if configured -->
+    
+        <!-- Site logo banner placed outside of the content container -->
+     
+    <div class="logo-container">
+        <!--<img src="../uploads/logo_1761963218.png" alt="Site Logo" class="site-logo">-->
+       
+    </div>
+     
+       
+ 
+    <div class="container" id="mainContent">
+        <!-- System statistics banner
+             This banner displays the total number of accounts currently loaded
+             in the system and the corresponding number of devices supported.
+             It uses the same glassmorphic styling as other cards via the
+             `info-card` class defined in the CSS. -->
+        <div class="info-card">
+                        <p style="font-size:16px;font-weight:bold;margin-bottom:6px;">
+                🆕 10 accounts has been added to the system.
+            </p>
+                        <p style="margin:0;">
+                ❇️ We currently have total 50 accounts &amp;
+                400 devices (Mobile+PC) available.
+            </p>
+        </div>
+        <!-- Row containing generator and history side-by-side -->
+        <div class="row-cards">
+            <!-- Generator card -->
+            <div class="generator-card">
+                <center><img src="/uploads/logo_1761963218.png"</center>
+                <center><p class="description">Just click the generate button to easily and freely and use accounts.</p></center>
+                                <form id="generateForm">
+                    <!-- When the generate form is submitted, JavaScript will intercept the event
+                         and perform an asynchronous request to generate a new account without
+                         refreshing the page. The button no longer carries a name attribute as
+                         generation is triggered via AJAX. -->
+                   
+                   <button type="submit" class="generate-btn">✨ Generate</button>
+                 <center><p class="description">If you've paid these accounts from other people,request refund money.</p></center>
+                </form>
+            </div>
+            
+            <!-- Account history card -->
+            <div class="history-card">
+                <center><h2>Your Accounts History</h2></center>
+                <div id="historyList">
+                                            <center><p>No accounts generated yet.</p></center>
+                                    </div>
+                <div id="paginationControls">
+                    
+                </div>
+                                    <!-- Row containing generator and history side-by-side -->
+      
+            <!-- Generator card -->
+               
+<div class="row-cards">
+    
+            <div class="info-card">
+   <span style="display:block;font-weight:bold;">💎 Daily Stock Updates</span>
+              <span style="display:block;font-weight:bold;">💎 Own User Panel Access</span>
+              <span style="display:block;font-weight:bold;">💎 Device Limit Chance Less</span>
+              <span style="display:block;font-weight:bold;">💎 Ticket System Included</span><br>
+              <form action="https://exphub.top" target="_blank">
+                   <button type="submit" class="generate-btn">💎 Join VIP</button>
+                </form>
+            </div>
+</div>
+</div>
+  
+   
+      
 
-    <div class="glass-card">
-        <h2>GitHub သို့ Upload လုပ်မည်</h2>
-        <p>GitHub လမ်းကြောင်း:</p>
-        <input type="text" placeholder="ဖိုင်ရွေးချယ်ပြီးမှ ပေါ်မည်" style="width: 100%;">
-        <button style="width: 100%; margin-top: 15px; padding: 10px;">Upload လုပ်မည်</button>
+            
+            
+        
+         
+         
+           
+    
+
+
+  <!-- Row with three info cards -->
+        <div class="row-info">
+            <div class="info-card">
+                 <img src="uploads/freeav.png" alt="free" style="float: left" / >
+                 <h3>&nbsp;Free Forever</h3>
+                 <p>&nbsp;We keep our service free for everyone.</p>
+            </div>
+            <!-- Additional info cards can be added here if needed -->
+        <div class="info-card">
+            <img src="uploads/save64.png" alt="save" style="float: left" />
+                <h3>&nbsp;Save Generated Accounts</h3>
+                <p>&nbsp;We automatically save your generated &nbsp;accounts as cookies for later use.</p>
+            </div>
+            <div class="info-card">
+                 <img src="uploads/no64.png" alt="save" style="float: left" />
+                <h3>&nbsp;No Tracking</h3>
+                <p>&nbsp;We don't track you or your data, we &nbsp;respect your privacy.</p>
+            </div>
+</div>
+        
+<br><br><br><br><br><br><br><br><br><br>
+    <!-- Modal for viewing account details -->
+    <div id="accountModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="if (!window.__cfRLUnblockHandlers) return false; closeModal()" data-cf-modified-a607415944a39123f5ffe483-="">&times;</span>
+            <center><h2>Account Details</h2></center>
+            <center><h5>ℹ️ Please take notes due to the account info might get lost. ℹ️</h5></center>
+            <p><strong>Email :</strong>
+                <span id="modalEmail"></span>
+                <button class="btn-copy" style="margin-left:8px;" onclick="if (!window.__cfRLUnblockHandlers) return false; copyModalField('modalEmail', this)" data-cf-modified-a607415944a39123f5ffe483-="">Copy</button>
+            </p>
+            <p><strong>Password :</strong>
+                <span id="modalPassword"></span>
+                <button class="btn-copy" style="margin-left:8px;" onclick="if (!window.__cfRLUnblockHandlers) return false; copyModalField('modalPassword', this)" data-cf-modified-a607415944a39123f5ffe483-="">Copy</button>
+            </p>
+            <p id="modalCodeRow" style="display:none;"><strong>CODE :</strong>
+                <span id="modalCode"></span>
+                <button class="btn-copy" style="margin-left:8px;" onclick="if (!window.__cfRLUnblockHandlers) return false; copyModalField('modalCode', this)" data-cf-modified-a607415944a39123f5ffe483-="">Copy</button>
+            </p>
+            <p><strong>Days Left:</strong> <span id="modalDays"></span></p>
+            <p><strong>Expiry Date:</strong> <span id="modalExpiry"></span></p>
+        </div>
     </div>
 
-</body>
-</html>
+    <!-- Modal for displaying generation limit or other notices -->
+    <div id="limitModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="if (!window.__cfRLUnblockHandlers) return false; closeLimitModal()" data-cf-modified-a607415944a39123f5ffe483-="">&times;</span>
+            <center><h2>⚠️</h2></center>
+            <p id="limitMessage"></p>
+        </div>
+    </div>
+
+    <script type="a607415944a39123f5ffe483-text/javascript">
+    // Helper to copy text to the clipboard with a fallback for browsers that
+    // don't support the Clipboard API on insecure contexts. After copying,
+    // the button text changes to "Copied" for a short time.
+    function fallbackCopy(text) {
+        // Create a temporary textarea to hold the text to be copied
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        // Position off-screen to avoid scrolling
+        textarea.style.position = 'fixed';
+        textarea.style.top = '-1000px';
+        textarea.style.left = '-1000px';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+        }
+        document.body.removeChild(textarea);
+    }
+
+    // Display feedback on the button when copying succeeds
+    function showCopyFeedback(btn) {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.disabled = true;
+        setTimeout(function() {
+            btn.textContent = original;
+            btn.disabled = false;
+        }, 2000);
+    }
+
+    // Copy account info to clipboard using modern API with fallback
+    function copyToClipboard(btn, email, password, code) {
+        var text = 'Email: ' + email + '\nPassword: ' + password + (code ? '\nCode: ' + code : '');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopyFeedback(btn);
+            }).catch(function() {
+                fallbackCopy(text);
+                showCopyFeedback(btn);
+            });
+        } else {
+            // Fallback for older browsers or insecure contexts
+            fallbackCopy(text);
+            showCopyFeedback(btn);
+        }
+    }
+
+    // Initialize the dynamic history list once the DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Remove any inline visibility hiding on the main content container
+        var main = document.getElementById('mainContent');
+        if (main) {
+            main.style.visibility = 'visible';
+        }
+        // Attach submit handler to generate form
+        var genForm = document.getElementById('generateForm');
+        if (genForm) {
+            genForm.addEventListener('submit', generateAccount);
+        }
+        // Initial render of history using data embedded from PHP
+        renderHistory();
+    });
+    </script>
+    <script type="a607415944a39123f5ffe483-text/javascript">
+    // Show account details in a modal popup
+    function showDetails(button) {
+        // Retrieve data attributes from the clicked button
+        var email = button.getAttribute('data-email') || '';
+        var password = button.getAttribute('data-password') || '';
+        var code = button.getAttribute('data-code') || '';
+        var days = button.getAttribute('data-days') || '';
+        var expiry = button.getAttribute('data-expiry') || '';
+        // Populate modal fields
+        document.getElementById('modalEmail').textContent = email;
+        document.getElementById('modalPassword').textContent = password;
+        if (code) {
+            document.getElementById('modalCode').textContent = code;
+            document.getElementById('modalCodeRow').style.display = 'block';
+        } else {
+            document.getElementById('modalCodeRow').style.display = 'none';
+        }
+        document.getElementById('modalDays').textContent = days;
+        document.getElementById('modalExpiry').textContent = expiry;
+        // Show modal
+        var modal = document.getElementById('accountModal');
+        modal.style.display = 'flex';
+        // Optionally blur background or disable scrolling
+    }
+
+    // Close the modal and reset fields
+    function closeModal() {
+        var modal = document.getElementById('accountModal');
+        modal.style.display = 'none';
+    }
+
+    // Close the limit/error modal
+    function closeLimitModal() {
+        var lm = document.getElementById('limitModal');
+        if (lm) {
+            lm.style.display = 'none';
+        }
+    }
+
+    // Copy a single modal field to clipboard using the same fallback and feedback as other copy operations
+    function copyModalField(spanId, btn) {
+        var text = document.getElementById(spanId).textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopyFeedback(btn);
+            }).catch(function() {
+                fallbackCopy(text);
+                showCopyFeedback(btn);
+            });
+        } else {
+            fallbackCopy(text);
+            showCopyFeedback(btn);
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Client-side state and functions for asynchronous generation, removal and
+    // pagination of generated accounts. These functions operate on the
+    // `generatedAccounts` array, which is initialised from the PHP session.
+
+    // Initialise the generated accounts array from PHP
+    var generatedAccounts = [];
+    // Items to show per page (matches the server-side setting)
+    var itemsPerPage = 3;
+    // Current page; starts from the server-side value but will be controlled by JS
+    var currentPage = 0;
+
+    // Render the history list and pagination controls based on current state
+    function renderHistory() {
+        var historyList = document.getElementById('historyList');
+        var pagination = document.getElementById('paginationControls');
+        if (!historyList || !pagination) return;
+        var totalItems = generatedAccounts.length;
+        var totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+        // Adjust current page if it falls outside the valid range
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+        if (totalItems === 0) {
+            historyList.innerHTML = '<center><p>No accounts generated yet.</p></center>';
+            pagination.innerHTML = '';
+            return;
+        }
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+        var pageAccounts = generatedAccounts.slice(startIndex, endIndex);
+        var html = '';
+        pageAccounts.forEach(function(acc, idx) {
+            var originalIndex = startIndex + idx;
+            var number = (typeof acc.number !== 'undefined') ? acc.number : (originalIndex + 1);
+            // Escape single quotes properly using double quotes in the replacement string.
+            var emailEsc = acc.email.replace(/'/g, "\\'");
+            var passwordEsc = acc.password.replace(/'/g, "\\'");
+            var codeEsc = acc.code ? acc.code.replace(/'/g, "\\'") : "";
+            html += '<div class="history-item" style="margin-bottom:16px;">' +
+                '<div style="flex:1;">' +
+                    '<span style="display:block;font-weight:bold;">EXP Account #' + number + '</span>' +
+                    '<small style="color:#888;font-size:11px;">Generated ' + acc.generated_at + '</small>' +
+                '</div>' +
+                '<button class="btn-copy" onclick="copyToClipboard(this, \'' + emailEsc + '\', \'' + passwordEsc + '\', \'' + codeEsc + '\')">Copy</button>' +
+                '<button class="btn-view" onclick="showDetailsFromList(' + originalIndex + ')">View</button>' +
+                '<button class="btn-remove" onclick="removeAccount(' + originalIndex + ')">Remove</button>' +
+            '</div>';
+        });
+        historyList.innerHTML = html;
+        // Build pagination links
+        var pagHtml = '';
+        if (totalPages > 1) {
+            pagHtml += '<div class="pagination">';
+            if (currentPage > 1) {
+                pagHtml += '<a href="#" class="page-link" onclick="changePage(' + (currentPage - 1) + ')">&laquo; Prev</a>';
+            }
+            for (var p = 1; p <= totalPages; p++) {
+                pagHtml += '<a href="#" class="page-link' + (p === currentPage ? ' active' : '') + '" onclick="changePage(' + p + ')">' + p + '</a>';
+            }
+            if (currentPage < totalPages) {
+                pagHtml += '<a href="#" class="page-link" onclick="changePage(' + (currentPage + 1) + ')">Next &raquo;</a>';
+            }
+            pagHtml += '</div>';
+        }
+        pagination.innerHTML = pagHtml;
+    }
+
+    // Change the current page and re-render
+    function changePage(p) {
+        currentPage = p;
+        renderHistory();
+    }
+
+    // Generate a new account via AJAX. Prevents default form submission.
+    function generateAccount(event) {
+        if (event) event.preventDefault();
+        // Send an AJAX POST request to generate the account
+        fetch('index.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'generate=1&ajax=1'
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            if (data && data.success) {
+                generatedAccounts = data.generatedAccounts;
+                // Move to the last page where the new item will be appended
+                var totalPages = Math.ceil(generatedAccounts.length / itemsPerPage) || 1;
+                currentPage = totalPages;
+                renderHistory();
+            } else if (data && data.error) {
+                // Populate and display the limit/error modal instead of alert()
+                var msgElem = document.getElementById('limitMessage');
+                if (msgElem) {
+                    msgElem.textContent = data.error;
+                }
+                var lm = document.getElementById('limitModal');
+                if (lm) {
+                    lm.style.display = 'flex';
+                }
+            }
+        })
+        .catch(function(err) {
+            console.error('Failed to generate account:', err);
+        });
+    }
+
+    // Remove an account via AJAX and update state
+    function removeAccount(index) {
+        fetch('index.php?remove=' + index + '&ajax=1')
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                if (data && data.success) {
+                    generatedAccounts = data.generatedAccounts;
+                    // Adjust current page if necessary
+                    var totalPages = Math.ceil(generatedAccounts.length / itemsPerPage) || 1;
+                    if (currentPage > totalPages) currentPage = totalPages;
+                    renderHistory();
+                }
+            })
+            .catch(function(err) {
+                console.error('Failed to remove account:', err);
+            });
+    }
+
+    // Display account details from the generatedAccounts array
+    function showDetailsFromList(index) {
+        var acc = generatedAccounts[index];
+        if (!acc) return;
+        document.getElementById('modalEmail').textContent = acc.email;
+        document.getElementById('modalPassword').textContent = acc.password;
+        if (acc.code) {
+            document.getElementById('modalCode').textContent = acc.code;
+            document.getElementById('modalCodeRow').style.display = 'block';
+        } else {
+            document.getElementById('modalCodeRow').style.display = 'none';
+        }
+        document.getElementById('modalDays').textContent = acc.days_left;
+        document.getElementById('modalExpiry').textContent = acc.expiry_date;
+        var modal = document.getElementById('accountModal');
+        modal.style.display = 'flex';
+    }
+    </script>
+ 
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="a607415944a39123f5ffe483-|49" defer></script></body>
+<footer class="glass-footer">
+    <center><div>
+        Made with <span style="color: #e25555;">❤️</span> by EXPGEN&nbsp;<br>&nbsp;
+        <a href="privacy.php">Privacy Policy</a>&nbsp;|&nbsp;
+        <a href="terms.php">Terms of Service</a>
+    </div></center>
+<
