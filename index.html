@@ -1,1011 +1,174 @@
+<!doctype html>
 
-<style>
-.main .PopularPosts,
-
-.page_body.centered>#footer,
-  #comments,
-  header.centered-top-container,
-  .post-title,
-  .post-share-buttons,
-  .bg-photo-container,
-  .bg-photo-overlay,
-  {
-    display: none;
-    
-  }
-  
-.post-body,
-.page-body .widget {
-  margin: 0;
-
-}
-  .Blog .blog-posts .post-outer-container,
-  .Blog .blog-posts .post-outer-container .post-outer,
-  .page_body .centered,
-  .centered-bottom {
-    padding: 0;
-  }
-  
-  .page_body .centered {
-    max-width: 100%;
-  }
-  
-  * {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #000;
-  }
-      body {
-      font-family: Arial, sans-serif;
-      background-color: #7C92DE;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-      animation: fadeIn 1.5s ease-in-out;
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Claim Credential — Glass UI</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --glass-bg: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.08);
+      --accent: rgba(99,102,241,1);
+      --accent-soft: rgba(99,102,241,0.16);
+      --muted: rgba(255,255,255,0.7);
+      --success: #10b981;
     }
-  @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-    
-   
- 
- .input_box {
-   
-   display: grid;
-    gap: 20px;
-   border-radius: 10px;
-    background: #8AB0D5;
-   box-shadow: 0px 6px 9px rgba(9,0,78,4);
-   border: none;
-    padding: 90px;
-   margin: 10%;
-   align-items: center;
-   justify-content: center;
-   position: relative;
-   
-  }
-  
-  /* From Uiverse.io by Mohammad-Rahme-576 */ 
-/* Container Styles */
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-  font-family: "Arial", sans-serif;
-  overflow: visible;
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+    body{
+      background: radial-gradient(800px 400px at 10% 10%, rgba(99,102,241,0.12), transparent 10%),
+                  radial-gradient(600px 300px at 90% 90%, rgba(16,185,129,0.06), transparent 10%),
+                  var(--bg);
+      -webkit-font-smoothing:antialiased;color: #e6eef8;
+      display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box
+    }/* glass container */
+.card{
+  width:100%;max-width:880px;border-radius:14px;padding:28px;box-sizing:border-box;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border:1px solid var(--card-border);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  position:relative;overflow:hidden
 }
 
-/* Button Styles */
-.button-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
-  color: white;
-  padding: 14px 28px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition:
-    background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-    transform 0.3s ease,
-    box-shadow 0.4s ease;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 10;
-  overflow: hidden;
+/* top decorative gradient */
+.card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background: linear-gradient(120deg, rgba(99,102,241,0.06), rgba(16,185,129,0.03));
+  mix-blend-mode: screen;opacity:0.9;border-radius:inherit
 }
 
-.button-content::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(110, 142, 251, 0.4),
-    rgba(167, 119, 227, 0.4)
-  );
-  filter: blur(15px);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
+header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;box-shadow:0 6px 18px rgba(99,102,241,0.12)}
+h1{font-size:18px;margin:0}
+p.lead{margin:0;color:var(--muted);font-size:13px}
+
+.controls{display:flex;gap:12px;align-items:center;margin-top:10px}
+input[type="text"]{
+  flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;font-size:14px
 }
 
-.button-content::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0) 70%
-  );
-  transform: scale(0);
-  transition: transform 0.6s ease-out;
-  z-index: -1;
+.btn{
+  padding:10px 16px;border-radius:10px;border:0;background:linear-gradient(180deg,var(--accent),#4f46e5);color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(79,70,229,0.18);transition:transform .14s ease,opacity .14s ease
+}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);box-shadow:none}
+
+#result{margin-top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+
+pre.cred{margin:6px 0;padding:12px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+
+.muted{color:var(--muted);font-size:13px}
+.small{font-size:12px;color:rgba(230,238,248,0.7)}
+
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px}
+.device{font-family:ui-monospace,monospace;background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;font-size:13px}
+
+/* status pill */
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:13px}
+.pill.ok{background:linear-gradient(90deg, rgba(16,185,129,0.12), rgba(16,185,129,0.04));color:var(--success);border:1px solid rgba(16,185,129,0.07)}
+.pill.no{background:linear-gradient(90deg, rgba(244,63,94,0.06), rgba(244,63,94,0.02));color:#f43f5e;border:1px solid rgba(244,63,94,0.06)}
+
+footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center}
+
+/* responsive */
+@media (max-width:640px){
+  .controls{flex-direction:column}
+  header{gap:10px}
+  .logo{width:44px;height:44px}
 }
 
-.button-content:hover::before {
-  opacity: 1;
-}
-
-.button-content:hover::after {
-  transform: scale(1);
-}
-
-.button-content:hover {
-  background: linear-gradient(135deg, #a777e3, #6e8efb);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  transform: translateY(-4px) scale(1.03);
-}
-
-.button-content:active {
-  transform: translateY(-2px) scale(0.98);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-}
-
-.text {
-  font-size: 18px;
-  font-weight: 600;
-  margin-right: 12px;
-  white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: letter-spacing 0.3s ease;
-}
-
-.button-content:hover .text {
-  letter-spacing: 1px;
-}
-
-.share-icon {
-  fill: white;
-  transition:
-    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-    fill 0.3s ease;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-}
-
-.button-content:hover .share-icon {
-  transform: rotate(180deg) scale(1.1);
-  fill: #ffffff;
-}
-
-/* Tooltip Styles */
-.tooltip-content {
-  position: absolute;
-  top: 102%;
-  left: 50%;
-  transform: translateX(-50%) scale(0.8);
-  background: white;
-  border-radius: 15px;
-  padding: 22px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-    transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-    visibility 0.5s ease;
-  z-index: 100;
-  pointer-events: none;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.tooltip-container:hover .tooltip-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) scale(1);
-  pointer-events: auto;
-}
-
-/* Social Icons Styles */
-.social-icons {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.social-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #f0f0f0;
-  transition:
-    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-    background 0.3s ease,
-    box-shadow 0.4s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.social-icon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0) 70%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.social-icon:hover::before {
-  opacity: 1;
-}
-
-.social-icon svg {
-  width: 24px;
-  height: 24px;
-  fill: #333;
-  transition:
-    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-    fill 0.3s ease;
-  z-index: 1;
-}
-
-.social-icon:hover {
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.social-icon:active {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.social-icon:hover svg {
-  transform: scale(1.2);
-  fill: white;
-}
-
-.social-icon.twitter:hover {
-  background: linear-gradient(135deg, #1da1f2, #1a91da);
-}
-
-.social-icon.facebook:hover {
-  background: linear-gradient(135deg, #1877f2, #165ed0);
-}
-
-.social-icon.linkedin:hover {
-  background: linear-gradient(135deg, #0077b5, #005e94);
-}
-
-/* Animation for Pulse Effect */
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(110, 142, 251, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 20px rgba(110, 142, 251, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(110, 142, 251, 0);
-  }
-}
-
-.button-content {
-  animation: pulse 3s infinite;
-}
-
-/* Hover Ripple Effect */
-@keyframes ripple {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-.button-content::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: inherit;
-  transform: scale(0);
-  opacity: 0;
-}
-
-.button-content:active::before {
-  animation: ripple 0.6s linear;
-}
-
-/* Tooltip Arrow */
-.tooltip-content::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 0 10px 10px 10px;
-  border-style: solid;
-  border-color: transparent transparent rgba(255, 255, 255, 0.9) transparent;
-  filter: drop-shadow(0 -3px 3px rgba(0, 0, 0, 0.1));
-}
-
-/* Accessibility */
-.button-content:focus {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(110, 142, 251, 0.5),
-    0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.button-content:focus:not(:focus-visible) {
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .button-content {
-    padding: 12px 24px;
-    border-radius: 40px;
-  }
-
-  .text {
-    font-size: 16px;
-  }
-
-  .tooltip-content {
-    width: 240px;
-    padding: 18px;
-  }
-
-  .social-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .social-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .button-content {
-    padding: 10px 20px;
-  }
-
-  .text {
-    font-size: 14px;
-  }
-
-  .tooltip-content {
-    width: 200px;
-    padding: 15px;
-  }
-
-  .social-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .social-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .tooltip-content {
-    background: rgba(30, 30, 30, 0.9);
-    color: white;
-  }
-
-  .tooltip-content::before {
-    border-color: transparent transparent rgba(30, 30, 30, 0.9) transparent;
-  }
-
-  .social-icon {
-    background: #2a2a2a;
-  }
-
-  .social-icon svg {
-    fill: #e0e0e0;
-  }
-}
-
-/* Print Styles */
-@media print {
-  .tooltip-container {
-    display: none;
-  }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .button-content,
-  .share-icon,
-  .social-icon,
-  .tooltip-content {
-    transition: none;
-  }
-
-  .button-content {
-    animation: none;
-  }
-}
-
-/* Custom Scrollbar for Tooltip Content */
-.tooltip-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.tooltip-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.tooltip-content::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 3px;
-}
-
-.tooltip-content::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-  
-  
-  
-  
-  
-  
-  .input {
-    
-    border: none;
-    box-shadow: 2px 4px 5px rgba(23,44,23,9);
-      padding: 10px;
-    border-radius: 5px;
-    background: transparent;
-   
-    outline: 2px solid #3F88AB;
-    color: white;
-    
-  
-  }
-  
-
-
-    
-    
-    .container {
-      display: grid;
-     
-      gap: 20px;
-      grid-template-columns: repeat(2,1fr);
-      justify-content: center;
-    }
-
-    .card {
-      background: #8AB0D5;
-      color: #000;
-      width: calc(80% - 0px); /* Two cards per row */
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      text-align: center;
-      position: relative
-      ;cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s ease ;
-    }
-    
-  
-  
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .card.selected {
-      border-color: #6200ea;
-      background-color: #e3d7f3;
-      color: #6200ea;
-    }
-  
-
-    .card img {
-      width: 90px;
-      margin-bottom: 10px;
-    
-      
-    }
-
-    .card .popular {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #f74f7c;
-      color: #fff;
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 5px;
-    }
-
-    .card h3 {
-      margin: 10px 0 5px;
-      font-size: 18px;
-    }
-
-    .card .price {
-      font-size: 16px;
-      font-weight: bold;
-      color: #e74c3c;
-    }
-
-    .card .discount {
-      color: #2ecc71;
-      font-size: 14px;
-    }
-
-    .card .old-price {
-      text-decoration: line-through;
-      font-size: 12px;
-      color: #aaa;
-    }
-
-    .card .prize {
-      margin-top: 10px;
-      color: #f1c40f;
-      font-size: 14px;
-    }
-   
-   
-   .btn {
-       
-       
-      display: flex;
-      maegin: 10%; 
-      padding: 20%;
-       
-       
-   }
-   
- /* From Uiverse.io by Awadhesh684827 */ 
-[class*="btn-glitch-"] {
-  display: inline-block;
-  font-family: "VT323", monospace;
-  border: 1px solid rgb(0, 0, 0);
-  color: rgb(0, 0, 0);
-  padding: 10px 13px;
-  min-width: 175px;
-  line-height: 1.5em;
-  white-space: no-wrap;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 15px;
-
-  .text,
-  .decoration {
-    display: inline-block;
-  }
-
-  .decoration {
-    display: inline-block;
-    float: right;
-  }
-
-  &:hover,
-  &:focus {
-    animation-name: glitch;
-    animation-duration: 0.2s;
-    background-color: yellow;
-    color: black;
-    border: 1px solid yellow;
-
-    .text-decoration {
-      animation-name: blink;
-      animation-duration: 0.1s;
-      animation-iteration-count: infinite;
-    }
-
-    .decoration {
-      animation-name: blink;
-      animation-duration: 0.1s;
-      animation-iteration-count: infinite;
-    }
-  }
-
-  &:active {
-    background: none;
-    color: yellow;
-
-    .text-decoration {
-      animation-name: none;
-    }
-
-    .decoration {
-      animation-name: none;
-    }
-
-    :before,
-    :after {
-      display: none;
-    }
-  }
-}
-
-@keyframes glitch {
-  25% {
-    background-color: red;
-    transform: translateX(-10px);
-    letter-spacing: 10px;
-  }
-
-  35% {
-    background-color: green;
-    transform: translate(10px);
-  }
-
-  59% {
-    opacity: 0;
-  }
-
-  60% {
-    background-color: blue;
-    transform: translate(-10px);
-    filter: blur(5px);
-  }
-
-  100% {
-    background-color: yellow;
-    blur: (5px);
-  }
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes shrink {
-  100% {
-    width: 10%;
-  }
-}
-</style>
-
-
+  </style>
+</head>
 <body>
-  
-  <div class="input_box" id="emailFrom">
-    
-<div class="tooltip-container">
-  <div class="button-content">
-    <span class="text">Contact Me</span>
-    <svg
-      class="share-icon"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width="24"
-      height="24"
-    >
-      <path
-        d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92zM18 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM6 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 7.02c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
-      ></path>
-    </svg>
-  </div>
-  <div class="tooltip-content">
-    <div class="social-icons">
-      <a href="tel:+66812361868" class="social-icon twitter">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-        >
-          <path
-            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
-          ></path>
-        </svg>
-      </a>
-      <a href="https://www.facebook.com/silent.iq99?mibextid=ZbWKwL" 
-      class="social-icon facebook">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-        >
-          <path
-            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-          ></path>
-        </svg>
-      </a>
-      <a href="#" class="social-icon linkedin">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-        >
-          <path
-            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-          ></path>
-        </svg>
-      </a>
-    </div>
-  </div>
+  <div class="card" role="main">
+    <header>
+      <div class="logo">C</div>
+      <div>
+        <h1>Claim email & password</h1>
+        <p class="lead">One claim per device every 24 hours · Client-only demo (public JSON)</p>
+      </div>
+    </header><div class="controls">
+  <input id="jsonUrl" type="text" placeholder="Paste raw JSON URL (raw.githubusercontent.com/...)" aria-label="Raw JSON URL" />
+  <button id="btn" class="btn">Claim Now</button>
+  <button id="statusBtn" class="btn ghost">Check</button>
 </div>
 
-    
-    
-    <span> id မှန်ကန်စွာထည့်ပါ</span>
-    
-    <input type="number" id="serverId" class="input" placeholder="SERVER ID" maxlength="5">
-  
-        <input type="number"  id="userId" class="input" placeholder="USER ID" maxlength="10">
-    
-    
-    
-   
-  </div>
-  
-  
-  
-  <div class="container">
-    <!-- Card 1 -->
-    <div class="card">
-      <div class="popular">Popular</div>
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      
-      
-      <h3>86 Diamonds</h3>
-      <p>(80 + 6 Bonus)</p>
-      <div class="price">฿50</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿55</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-      
-     
-    </div>
-    <!-- Card 2 -->
-    <div class="card">
-      <div class="popular">Popular</div>
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>172 Diamonds</h3>
-      <p>(165 + 7 Bonus)</p>
-      <div class="price">฿85</div>
-    <div class="discount">-10%</div>
-      <div class="old-price">฿100</div>
-    <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    <!-- Repeat Cards -->
-    <!-- Add 12 more cards here -->
-    <!-- For simplicity, repeat the structure -->
-    <!-- Card 3 -->
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>257 Diamonds</h3>
-      <p>(245 + 12 Bonus)</p>
-      <div class="price">฿145</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿150</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    <!-- Card 4 -->
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>344 Diamonds</h3>
-      <p>(330 + 14 Bonus)</p>
-      <div class="price">฿170</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿185</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>514 Diamonds</h3>
-      <p>(500 + 14 Bonus)</p>
-      <div class="price">฿265</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿275</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>600 Diamonds</h3>
-      <p>(584 + 16 Bonus)</p>
-      <div class="price">฿320</div>
-      <div class="discount">10%</div>
-      <div class="old-price">฿330</div>
-      <div class="prize">WAITING<br>time 3minute</div>
-    </div>
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>706 Diamonds</h3>
-      <p>(690 + 16 Bonus)</p>
-      <div class="price">฿360</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿370</div>
-      <div class="prize">WAITING<br>time 3minute</div>
-    </div>
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>1050 Diamonds</h3>
-      <p>(1036 + 14 Bonus)</p>
-      <div class="price">฿540</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿550</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>1412 Diamonds</h3>
-      <p>(1400 + 12 Bonus)</p>
-      <div class="price">฿720</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿730</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>2195 Diamonds</h3>
-      <p>(2180 + 15 Bonus)</p>
-      <div class="price">฿1090</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿1100</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>2901 Diamonds</h3>
-      <p>(2870 + 21 Bonus)</p>
-      <div class="price">฿1430</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿1450</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>3688 Diamonds</h3>
-      <p>(3600 + 88 Bonus)</p>
-      <div class="price">฿1780</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿1800</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>5532 Diamonds</h3>
-      <p>(5500 + 32 Bonus)</p>
-      <div class="price">฿2680</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿2700</div>
-      <div class="prize">WAITING<br>Time 3Minute</div> 
-      
-    </div>
-    
-    
-    <div class="card">
-      <img src="https://res.cloudinary.com/djz6y9jdg/image/upload/v1734252696/ei_1734252604748-removebg-preview_1_peop0j.png" alt="Diamond">
-      <h3>9288 Diamonds</h3>
-      <p>(9200 + 88 Bonus)</p>
-      <div class="price">฿4520</div>
-      <div class="discount">-10%</div>
-      <div class="old-price">฿4560</div>
-      <div class="prize">WAITING<br>Time 3Minute</div>
-    </div>
-    
-      
-    
-    <!-- Continue for all 14 cards -->
-  </div>
-  <div class="btn">
-
-<a class="btn-glitch-fill" id="submit">
-  <span class="text"> // BUY NOW</span><span  class="text-decoration"> _</span
-  ><span class="decoration">⇒</span>
-</a>
-
+<div id="result">
+  <div class="muted">Enter the raw JSON URL from your GitHub repo, then press <strong>Claim Now</strong>.</div>
 </div>
-  
+
+<div class="meta">
+  <div class="device">Device id: <span id="deviceId" style="margin-left:8px;font-weight:600"></span></div>
+  <div id="elig" class="small"></div>
+</div>
+
+<footer>
+  <div class="small">Note: This is client-only. For true one-time claims use a backend.</div>
+  <div class="small muted">Supports WebView `window.ANDROID_DEVICE_ID` or localStorage fallback</div>
+</footer>
+
+  </div><script>
+// --- device id ---
+function getDeviceId(){
+  if (window.ANDROID_DEVICE_ID) return window.ANDROID_DEVICE_ID;
+  try{
+    let id = localStorage.getItem('pseudo_device_id_v1');
+    if (!id){ id = 'web-' + Math.random().toString(36).slice(2) + '-' + Date.now().toString(36); localStorage.setItem('pseudo_device_id_v1', id); }
+    return id;
+  }catch(e){ return 'web-unknown-' + Date.now(); }
+}
+const deviceId = getDeviceId();
+document.getElementById('deviceId').innerText = deviceId;
+
+// storage helpers
+function getLastClaimTs(devId){ try{ const map = JSON.parse(localStorage.getItem('claims_ts_v1')||'{}'); return map[devId] || null; }catch(e){return null;} }
+function setLastClaimTs(devId, ts){ try{ const map = JSON.parse(localStorage.getItem('claims_ts_v1')||'{}'); map[devId]=ts; localStorage.setItem('claims_ts_v1', JSON.stringify(map)); }catch(e){} }
+function getClaimedIdsForDevice(devId){ try{ const map = JSON.parse(localStorage.getItem('claimed_ids_v1')||'{}'); return map[devId]||[] }catch(e){return []} }
+function addClaimedIdForDevice(devId, id){ try{ const map = JSON.parse(localStorage.getItem('claimed_ids_v1')||'{}'); if (!Array.isArray(map[devId])) map[devId]=[]; map[devId].push(id); localStorage.setItem('claimed_ids_v1', JSON.stringify(map)); }catch(e){} }
+
+function secondsToHms(s){ s = Math.max(0, Math.floor(s)); const h=Math.floor(s/3600); s-=h*3600; const m=Math.floor(s/60); const ss=s%60; return `${h}h ${m}m ${ss}s`; }
+
+async function fetchJson(url){ const res = await fetch(url, {cache:'no-store'}); if (!res.ok) throw new Error('Fetch failed: '+res.status); return res.json(); }
+
+const btn = document.getElementById('btn');
+const statusBtn = document.getElementById('statusBtn');
+const result = document.getElementById('result');
+const elig = document.getElementById('elig');
+
+function updateElig(){ const last = getLastClaimTs(deviceId); const now = Date.now(); const oneDay=24*3600*1000; if (!last || now - last >= oneDay){ elig.innerHTML = '<span class="pill ok">Eligible</span>'; } else { const rem = Math.ceil((oneDay - (now-last))/1000); elig.innerHTML = `<span class="pill no">Wait ${secondsToHms(rem)}</span>`; } }
+updateElig();
+
+btn.addEventListener('click', async ()=>{
+  result.innerHTML='';
+  const url = (document.getElementById('jsonUrl').value||'').trim();
+  if (!url){ result.innerHTML = '<div style="color:#ffb4b4">Please paste raw JSON URL first.</div>'; return; }
+
+  const last = getLastClaimTs(deviceId); const now = Date.now(); const oneDay=24*3600*1000;
+  if (last && now - last < oneDay){ const retry = oneDay - (now-last); result.innerHTML = `<div><strong>Not eligible yet.</strong><div class="muted">Try after ${secondsToHms(Math.ceil(retry/1000))}</div></div>`; updateElig(); return; }
+
+  btn.disabled=true; btn.textContent='Fetching...';
+  try{
+    const json = await fetchJson(url);
+    if (!json || !Array.isArray(json.data)) throw new Error('Invalid JSON format — expected {"data":[...] }');
+
+    const claimedIds = getClaimedIdsForDevice(deviceId);
+    let items = json.data.slice();
+    items = items.filter((it, idx)=>{ const id = (it.id!==undefined)?String(it.id):String(idx); return !claimedIds.includes(id); });
+
+    if (items.length===0){ result.innerHTML = '<div><strong>No new credentials available for this device.</strong></div>'; return; }
+
+    const picked = items[0]; const pickedId = (picked.id!==undefined)?String(picked.id):String(json.data.indexOf(picked));
+
+    result.innerHTML = `<div style="display:flex;align-items:center;gap:12px"><svg width=36 height=36 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="white" opacity="0.06"/><path d="M12 6v6l4 2" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="small">Claimed credential</div><pre class="cred">${picked.email} / ${picked.password}</pre></div></div><div class="muted">This device cannot claim again for 24 hours.</div>`;setLastClaimTs(deviceId, now);
+addClaimedIdForDevice(deviceId, pickedId);
+updateElig();
+
+}catch(err){ console.error(err); result.innerHTML = <div style="color:#ffb4b4">Error: ${err.message}</div>; } finally{ btn.disabled=false; btn.textContent='Claim Now'; } });
+
+statusBtn.addEventListener('click', ()=>{ updateElig(); alert(elig.textContent); }); </script>
+
 </body>
-
-
-
-
-<script>
-  
-    // EmailJS ကို initialize လုပ်ရန်
-
-  (function() {
-
-    emailjs.init("385xoVcR9RyowaCfb"); // EmailJS Public Key ကို ရှိရာထည့်ပါ
-
-  })();
-
-  // Form ကို submit လုပ်တဲ့အခါ data ကိုပို့မယ့် function
-
-  document.getElementById("emailForm").addEventListener("submit", function(event) {
-
-    event.preventDefault(); // Form reload ကိုတားသည်
-
-    const formData = {
-
-      server_id: document.getElementById("serverId").value,
-
-      user_id: document.getElementById("userId").value,
-
-      selected_card: document.getElementById("selectedCard").value,
-
-    };
-
-    // EmailJS ကို data ပို့ခြင်း
-
-    emailjs.send("service_payment", "template_lwi8xmf", formData)
-
-      .then(response => alert("Message ပို့ပြီးပါပြီ!"))
-
-      .catch(error => alert("Message ပို့မအောင်မြင်ပါ!"));
-
-  });
-  
-  
-    // Select all card
-    const cards = document.querySelectorAll('.card');
-
-    // Add click event listener to each card
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        // Toggle "selected" class
-        if (card.classList.contains('selected')) {
-          card.classList.remove('selected');
-        } else {
-          // Remove "selected" from other cards
-          cards.forEach(c => c.classList.remove('selected'));
-          // Add "selected" to clicked card
-          card.classList.add('selected');
-        }
-      });
-    });
-
-    // Submit button logic
-    function submitSelection() {
-      const selectedCard = document.querySelector('.card.selected');
-      if (selectedCard) {
-        const diamondId = selectedCard.getAttribute('data-id');
-        alert(`You selected ${diamondId} Diamonds!`);
-      } else {
-        alert('Please select a card!');
-      }
-    }
-  </script>
-
-
+</html>
