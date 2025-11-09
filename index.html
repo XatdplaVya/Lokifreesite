@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tidal Account — Claim</title>
+<style>
+  :root{
+    --bg:#07101e; --card:#0f1724cc; --glass: rgba(255,255,255,0.04);
+    --accent1:#7c5cff; --accent2:#06b6d4; --muted:#aebbd1; --success:#10b981;
+    --danger:#ff6b6b; --radius:14px;
+     --glass-bg: rgba(255,255,255,0.12);
+    --glass-border: rgba(255,255,255,0.2);
+    --glass-focus: rgba(255,255,255,0.28);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e8f0ff;background:
+    radial-gradient(600px 300px at 10% 10%, rgba(124,154,255,0.08), transparent),
+    radial-gradient(600px 300px at 90% 90%, rgba(232,182,212,0.03), transparent),
+    var(--bg);-webkit-font-smoothing:antialiased}
+
+  .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
+  .card {
+  position:relative;
+    overflow:hidden; /* ripple ထွက်ဖို့အတွက် */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 14px 34px;
+    font-size:16px;
+    border-radius:9px;
+    cursor:pointer;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .header{display:flex;align-items:center;gap:14px}
+  .logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:22px;box-shadow:0 10px 28px rgba(124,92,255,0.12)}
+  h1{margin:0;font-size:20px}
+  .lead{margin:0;color:var(--muted);font-size:13px}
+
+  .form{margin-top:18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+ 
+  .controls{display:flex;gap:12px}
+    .btn{
+    position:relative;
+    overflow:hidden; /* ripple ထွက်ဖို့အတွက် */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 14px 34px;
+    font-size:16px;
+    border-radius:20px;
+    cursor:pointer;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+.btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-10%) scale(1.03);
+  box-shadow: 0 16 30px rgba(255, 255, 255, 0.4);
+}
+
+/* Animated light streak effect 💫 */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  transition: all 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+  /* focus style (accessible) */
+  .btn:focus{
+    outline: none;
+    box-shadow: 0 0 0 0px var(--glass-focus), 0 12px 30px rgba(0,0,0,0.18);
+  }
+
+  /* ripple element */
+  .ripple {
+    position:absolute;
+    border-radius:50%;
+    transform: scale(0);
+    pointer-events:none;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.45) 30%, rgba(255,255,255,0.15) 60%, transparent 70%);
+    opacity: .9;
+    animation: ripple-anim 700ms cubic-bezier(.2,.6,.2,1);
+    will-change: transform, opacity;
+  }
+
+  @keyframes ripple-anim {
+    0% {
+      transform: scale(0);
+      opacity: 0.9;
+    }
+    60% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .ripple { transition: none; animation: none; transform: none; }
+  }
+
+  #result{margin-top:18px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);min-height:100px}
+  .card-row{display:flex;gap:12px;align-items:center}
+  .cred-box{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(6,11,21,0.45), rgba(0,0,0,0.25));border:1px solid rgba(255,255,255,0.03)}
+  .cred-title{font-weight:700;margin-bottom:6px}
+  .cred-value{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;overflow:auto}
+
+  .copy-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:transform .12s,background .12s}
+  .copy-btn:hover{transform:translateY(-3px);background:rgba(255,255,255,0.04)}
+  .copy-btn.copied{background:linear-gradient(90deg, rgba(16,185,129,0.12), rgba(16,185,129,0.04));color:var(--success);box-shadow:0 8px 20px rgba(16,185,129,0.06)}
+
+  .meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}
+  .muted{color:var(--muted);font-size:13px}
+
+  .expiry{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:600}
+  .exp-date{background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px;font-family:ui-monospace,monospace}
+
+  @media (max-width:720px){ 
+    .form {
+      grid-template-columns:1fr;
+    } 
+    .controls {
+      width:100%;
+      justify-content:stretch;
+    }
+    .controls, .btn {
+      flex: 1;
+    } 
+    .card-row {
+      flex-direction:column;
+      align-items:stretch;
+    } 
+
+  } 
+
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main" aria-label="Claim Tidal account">
+      <div class="header">
+        <div class="logo">T</div>
+        <div>
+          <h1>Tidal Account</h1>
+          <p class="lead">Tidal Premium ၁လအကောက်တွေကို free ထုတ်ယူနိုင်ပါသည်</p>
+        </div>
+      </div>
+
+      <div class="form" style="margin-top:18px">
+        
+        <div class="controls" style="align-self:start">
+          <button id="generateBtn" class="btn">Generate</button>
+          
+        </div>
+      </div>
+
+      <div id="result" aria-live="polite">
+        <div class="muted">Press <strong>Generate</strong> to Claim Account</div>
+      </div>
+
+      <div class="meta">
+        <div class="muted"> Developer By LOKI <code>Free</code>တစ်ဦးလျင်တစ်ခါသာယူ‌ေပးပါ</div>
+        <div class="muted">One claim per device every 24 hours</div>
+      </div>
+    </div>
+  </div>
+  <script>
+  // Add ripple on pointerdown (works for mouse/touch/pen)
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('pointerdown', function(e){
+      // create ripple element
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+
+      // calculate size: make it big enough to cover button diagonally
+      const size = Math.max(rect.width, rect.height) * 1.6;
+      ripple.style.width = ripple.style.height = size + 'px';
+
+      // position: center the ripple at pointer location
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+
+      // append and remove after animation
+      btn.appendChild(ripple);
+
+      // remove after animation finishes or fallback timeout
+      ripple.addEventListener('animationend', () => {
+        ripple.remove();
+      });
+
+      // fallback: in case animationend doesn't fire
+      setTimeout(() => {
+        if (ripple.parentNode) ripple.remove();
+      }, 900);
+    });
+
+    // optional: keyboard "click" (Enter/Space) -> create center ripple
+    btn.addEventListener('keydown', function(e){
+      if (e.key === ' ' || e.key === 'Enter') {
+        // prevent default space => scroll
+        e.preventDefault();
+        const rect = btn.getBoundingClientRect();
+        const fakeEvent = {
+          clientX: rect.left + rect.width/2,
+          clientY: rect.top + rect.height/2
+        };
+        // reuse pointerdown logic by dispatching a custom pointerdown-like call
+        const pointerDown = new PointerEvent('pointerdown', {
+          bubbles: true,
+          clientX: fakeEvent.clientX,
+          clientY: fakeEvent.clientY,
+        });
+        btn.dispatchEvent(pointerDown);
+      }
+    });
+  });
+(function(){
+  const generateBtn = document.getElementById('generateBtn');
+  const resultEl = document.getElementById('result');
+
+  // device id & storage helpers
+  function getDeviceId(){
+    if (window.ANDROID_DEVICE_ID) return window.ANDROID_DEVICE_ID;
+    try{ let id = localStorage.getItem('pseudo_device_id_v1'); if(!id){ id = 'web-' + Math.random().toString(36).slice(2) + '-' + Date.now().toString(36); localStorage.setItem('pseudo_device_id_v1', id);} return id; }catch(e){ return 'web-unknown-' + Date.now(); }
+  }
+  const deviceId = getDeviceId();
+  function getLastClaimTs(devId){ try{ const map = JSON.parse(localStorage.getItem('claims_ts_v1')||'{}'); return map[devId]||null;}catch(e){return null;} }
+  function setLastClaimTs(devId, ts){ try{ const map = JSON.parse(localStorage.getItem('claims_ts_v1')||'{}'); map[devId]=ts; localStorage.setItem('claims_ts_v1', JSON.stringify(map)); }catch(e){} }
+  function getClaimedIds(devId){ try{ const map = JSON.parse(localStorage.getItem('claimed_ids_v1')||'{}'); return map[devId]||[] }catch(e){return []} }
+  function addClaimedId(devId,id){ try{ const map = JSON.parse(localStorage.getItem('claimed_ids_v1')||'{}'); if(!Array.isArray(map[devId])) map[devId]=[]; map[devId].push(id); localStorage.setItem('claimed_ids_v1', JSON.stringify(map)); }catch(e){} }
+
+  function showMessage(html){ resultEl.innerHTML = html; }
+
+  async function fetchJson(url){
+    const res = await fetch(url, {cache:'no-store'});
+    if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+    return res.json();
+  }
+
+  function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function secondsToHms(s){ s = Math.max(0, Math.floor(s)); const h=Math.floor(s/3600); s-=h*3600; const m=Math.floor(s/60); const ss=s%60; return `${h}h ${m}m ${ss}s`; }
+
+  // create ripple
+  function createRipple(e){
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const circle = document.createElement('span');
+    circle.className = 'ripple';
+    const size = Math.max(rect.width, rect.height);
+    circle.style.width = circle.style.height = size + 'px';
+    const x = (e.clientX || (rect.left + rect.width/2)) - rect.left - size/2;
+    const y = (e.clientY || (rect.top + rect.height/2)) - rect.top - size/2;
+    circle.style.left = x + 'px';
+    circle.style.top = y + 'px';
+    btn.appendChild(circle);
+    circle.addEventListener('animationend', ()=>circle.remove());
+  }
+
+  async function claimFlow(url){
+    const last = getLastClaimTs(deviceId); const now = Date.now(); const oneDay = 24*3600*1000;
+    if (last && now - last < oneDay){ const rem = Math.ceil((oneDay - (now-last))/1000); showMessage(`<div style="color:#ffb4b4"><strong>Not eligible yet.</strong> Try after ${secondsToHms(rem)}</div>`); return; }
+    if (!url){ showMessage('<div style="color:#fca5a5">Missing JSON URL</div>'); return; }
+
+    showMessage('<div class="muted">Fetching account…</div>');
+    try{
+      const json = await fetchJson(url);
+      if (!json || !Array.isArray(json.data)) throw new Error('Invalid JSON format: expected {\"data\": [ ... ] }');
+
+      // filter out ids already claimed by this device
+      const claimed = getClaimedIds(deviceId);
+      let items = json.data.slice();
+      items = items.filter((it, idx)=>{ const id = it.id !== undefined ? String(it.id) : String(idx); return !claimed.includes(id); });
+      if (items.length === 0){ showMessage('<div class="muted"><strong>No new credentials available for this device.</strong></div>'); return; }
+
+      const pick = items[0];
+      const pickId = pick.id !== undefined ? String(pick.id) : String(json.data.indexOf(pick));
+      // build UI
+      const mail = escapeHtml(pick.mail || pick.email || '');
+      const pass = escapeHtml(pick.password || pick.pass || '');
+      const exp  = escapeHtml(pick.exp || pick.expiry || '');
+
+      showMessage(`
+        <div class="card-row" style="margin-bottom:12px">
+          <div class="cred-box">
+            <div class="cred-title">Email</div>
+            <div class="cred-value">${mail || '<span style="color:#ffb4b4">— missing —</span>'}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+            <button class="copy-btn" data-copy-type="mail" aria-label="Copy email">Copy
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.9" xmlns="http://www.w3.org/2000/svg"><path d="M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div style="height:6px"></div>
+          </div>
+        </div>
+
+        <div class="card-row" style="margin-bottom:12px">
+          <div class="cred-box">
+            <div class="cred-title">Password</div>
+            <div class="cred-value">${pass || '<span style="color:#ffb4b4">— missing —</span>'}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+            <button class="copy-btn" data-copy-type="password" aria-label="Copy password">Copy
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.9" xmlns="http://www.w3.org/2000/svg"><path d="M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-row" style="align-items:center">
+          <div class="cred-box" style="flex-basis:50%">
+            <div class="cred-title">Expiry date</div>
+            <div class="exp-date">${exp || '<span style="color:#ffb4b4">— missing —</span>'}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+            <button class="copy-btn" data-copy-type="expiry" aria-label="Copy expiry date">Copy
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.9" xmlns="http://www.w3.org/2000/svg"><path d="M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="muted">This device cannot claim again for 24 hours.</div>
+      `);
+
+      // store claim
+      setLastClaimTs(deviceId, Date.now()); addClaimedId(deviceId, pickId);
+
+      // wire copy buttons
+      wireCopyButtons(mail, pass, exp);
+    }catch(err){
+      showMessage(`<div style="color:#ffb4b4"><strong>Error:</strong> ${escapeHtml(err.message)}</div>`);
+    }
+  }
+
+  function wireCopyButtons(mail, pass, exp){
+    const buttons = resultEl.querySelectorAll('.copy-btn');
+    buttons.forEach(btn=>{
+      btn.classList.remove('copied');
+      btn.onclick = async function(e){
+        createRipple(e);
+        const type = btn.getAttribute('data-copy-type');
+        let text = '';
+        if (type === 'mail') text = mail;
+        if (type === 'password') text = pass;
+        if (type === 'expiry') text = exp;
+        if (!text) {
+          btn.textContent = 'Nothing';
+          setTimeout(()=>{ btn.textContent = 'Copy'; }, 1200);
+          return;
+        }
+        try{
+          await navigator.clipboard.writeText(text);
+          btn.classList.add('copied');
+          btn.innerHTML = 'Copied ✓';
+          setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML = 'Copy' + btn.querySelector('svg')?.outerHTML || 'Copy'; }, 1400);
+        }catch(e){
+          // fallback: select then execCopy
+          fallbackClipboard(text);
+          btn.classList.add('copied');
+          btn.innerText = 'Copied';
+          setTimeout(()=>{ btn.classList.remove('copied'); btn.innerText = 'Copy'; }, 1400);
+        }
+      };
+    });
+  }
+
+  // clipboard fallback
+  function fallbackClipboard(text){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+
+  // events + ripple
+  generateBtn.addEventListener('click', function(e){ createRipple(e); const url = "https://raw.githubusercontent.com/XatdplaVya/Lokifreesite/refs/heads/main/tidal"; claimFlow(url); });
+  
+})();
+
+</script>
+</body>
+</html>
