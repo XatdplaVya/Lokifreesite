@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TVA Portal – Enhanced Edition</title>
+
+<style>
+
+  /* Sacred Timeline Wrapper */
+.timeline-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+  height: 120px;
+  position: relative;
+  overflow: visible;
+}
+
+/* Timeline SVG */
+.sacred-timeline {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 12px rgba(255,190,90,0.7));
+}
+
+/* Main glowing line pulse */
+@keyframes timelineGlow {
+  0% { stroke: #ffb347; filter: drop-shadow(0 0 6px #ffb347); }
+  50% { stroke: #ffd28a; filter: drop-shadow(0 0 18px #ffd28a); }
+  100% { stroke: #ffb347; filter: drop-shadow(0 0 6px #ffb347); }
+}
+
+.timeline-path {
+  animation: timelineGlow 3s ease-in-out infinite;
+}
+
+/* Branch timeline flicker */
+@keyframes branchFlicker {
+  0% { opacity: 0; stroke-width: 0; }
+  10% { opacity: 1; stroke-width: 4; }
+  30% { opacity: 1; stroke-width: 3; }
+  60% { opacity: 0.7; stroke-width: 2; }
+  100% { opacity: 0; stroke-width: 0; }
+}
+
+.branch-path {
+  opacity: 0;
+  animation: branchFlicker 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Ripple effect when branch appears */
+@keyframes ripple {
+  0% { transform: scale(0.7); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.timeline-ripple {
+  position: absolute;
+  width: 15px; height: 15px;
+  background: radial-gradient(circle, #ffb347, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ripple 1s ease-out;
+}
+/* RESET */
+html, body {
+  margin: 0; padding: 0;
+  overflow-x: hidden;
+  background: #2d0d05;
+  font-family: 'Courier New', monospace;
+  color: #ff8c00;
+}
+
+/* BACKGROUND LAYERS */
+.tva-bg {
+  position: fixed; inset: 0;
+  background: radial-gradient(circle at center, rgba(255,140,0,0.25), transparent 60%),
+              linear-gradient(135deg, #3c1d07, #52290d, #3c1d07);
+  z-index: -4;
+}
+
+/* Scanlines */
+.scanline {
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,140,0,0.03) 0px,
+    rgba(255,140,0,0.03) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: -3;
+}
+
+/* Noise Layer */
+@keyframes noiseAnim {
+  0% { clip-path: inset(10% 0 55% 0); }
+  20% { clip-path: inset(0 0 65% 0); }
+  40% { clip-path: inset(40% 0 20% 0); }
+  60% { clip-path: inset(80% 0 0 0); }
+  80% { clip-path: inset(10% 0 30% 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+.noise {
+  position: fixed; inset: 0;
+  background-image: url('https://media.tenor.com/YsR8qvYX0eIAAAAC/tv-static.gif');
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  animation: noiseAnim 1s infinite steps(8);
+  z-index: -2;
+}
+
+/* Glowing TVA Shine */
+.glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,140,0,0.35), transparent 70%);
+  animation: glowPulse 6s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes glowPulse {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 0.75; }
+}
+
+/* TVA TITLE GLITCH */
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #ff8c00; }
+  20% { text-shadow: -3px 0 #ff8c00; }
+  40% { text-shadow: 4px 0 #ff6a00; }
+  60% { text-shadow: -4px 0 #ffb347; }
+  100% { text-shadow: 2px 0 #ff8c00; }
+}
+
+.tva-title {
+  text-align: center;
+  font-size: 70px;
+  letter-spacing: 10px;
+  margin-top: 80px;
+  animation: glitch 1.8s infinite;
+}
+
+/* TVA subtitle */
+.tva-subtitle {
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+  opacity: 0.85;
+}
+
+/* PORTAL RING EFFECT */
+/* Portal wrapper to center everything */
+.portal-wrapper {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+}
+
+/* The glowing rotating portal ring */
+.portal-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid #ff8c00;
+  box-shadow: 0 0 35px #ff8c00, inset 0 0 20px #ff8c0077;
+  animation: portalSpin 6s linear infinite;
+}
+
+@keyframes portalSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* MISS MINUTES IMAGE INSIDE RING */
+.miss-inside {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 55%;         /* Adjust size */
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px #ff8c00aa)
+          drop-shadow(0 0 20px #ff8c0055)
+          brightness(1.2);
+  animation: missFloat 3s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes missFloat {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  50%  { transform: translate(-50%, -55%) scale(1.05); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* TVA BOX */
+.tva-box {
+  width: 65%;
+  max-width: 380px;
+  margin: 0 auto 40px auto;
+  padding: 35px 30px;
+  border: 3px solid #ff8c00;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 20px #ff8c0044;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 1s cubic-bezier(.17,.67,.83,.67);
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Distortion Ripple On Hover */
+.tva-box:hover {
+  animation: distort 0.4s linear;
+}
+
+@keyframes distort {
+  0% { transform: skewX(0deg); }
+  20% { transform: skewX(5deg); }
+  40% { transform: skewX(-5deg); }
+  60% { transform: skewX(3deg); }
+  80% { transform: skewX(-2deg); }
+  100% { transform: skewX(0deg); }
+}
+
+/* Button Spark effect */
+.tva-btn {
+  padding: 15px 45px;
+  border: 2px solid #ff8c00;
+  background: rgba(0,0,0,0.5);
+  color: #ff8c00;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+/* Electric sparks */
+.tva-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,140,0,0.5), transparent);
+  transition: 0.5s;
+}
+
+.tva-btn:hover::after {
+  left: 100%;
+}
+
+.tva-btn:active { transform: scale(0.96); }
+
+/* INNER BOX TEXT */
+.box-title {
+  font-size: 28px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 12px #ff8c0088;
+}
+
+.box-description {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+/* MOBILE FIX */
+@media(max-width:500px){
+  .tva-title { font-size: 50px; }
+  .portal-ring { width: 220px; height: 220px; }
+}
+  .loki {
+    position: relative;
+    left: 45%;
+    
+    
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="timeline-wrapper">
+  <svg class="sacred-timeline" viewBox="0 0 1000 200" preserveAspectRatio="none">
+    <!-- Main Sacred Timeline -->
+    <path id="main-timeline"
+      d="M 0 100 
+         C 150 90, 300 110, 450 100
+         S 750 90, 1000 100"
+      stroke="#ffb347"
+      stroke-width="5"
+      fill="none"
+      stroke-linecap="round"
+      class="timeline-path"
+    />
+
+    <!-- Branch Timeline (auto-appears and fades) -->
+    <path id="branch-timeline"
+      d="M 500 100
+         C 520 60, 560 40, 600 20"
+      stroke="#ff4500"
+      stroke-width="4"
+      fill="none"
+      stroke-linecap="round"
+      class="branch-path"
+    />
+        <path id="branch-timeline"
+      d="M 500 100
+         C 520 60, 560 40, 600 20"
+      stroke="#ff4500"
+      stroke-width="4"
+      fill="none"
+      stroke-linecap="round"
+      class="branch-path"
+    />
+  </svg>
+</div>
+
+<div class="tva-bg"></div>
+<div class="scanline"></div>
+<div class="noise"></div>
+<div class="glow"></div>
+
+<div class="tva-title">TVA</div>
+<div class="tva-subtitle">TIME VARIANCE AUTHORITY</div>
+
+<div class="portal-wrapper">
+  <div class="portal-ring">Løkî</div>
+  <!-- MISS MINUTES IMAGE INSIDE RING -->
+  <img src="https://raw.githubusercontent.com/XatdplaVya/Lokifreesite/refs/heads/main/miss_minutes__mcu____transparent_by_matuta2002_djfjfck-pre.png"
+   class="miss-inside" alt="Miss Minutes">
+  
+</div>
+
+<!-- TIMELINE ALPHA -->
+<div class="tva-box">
+  <div class="box-title">TIMELINE ALPHA</div>
+  <div class="box-description">
+    Access restricted nexus coordinates and monitor timeline variants.
+  </div>
+  <br>
+  <br>
+  <span>Dowmload Pixel lab mod apk.</span>
+  <a href="https://www.dropbox.com/scl/fi/n294q92i1u2r12vw70dx4/PixelLab_1.9.7-RMB1.apk?rlkey=zbumwcfo75rcog7wxefg61bum&st=hzmapb6u&dl=1" class="tva-btn"> Download Apk</a>
+</div>
+
+
+  <div class="tva-box">
+  <div class="box-title">TIMELINE BETA</div>
+  <div class="box-description">
+    Explore alternate time realities across the multiverse.
+  </div>
+  <br>
+  <br>
+  <span> Download .plp file </span>
+  <a href="https://www.dropbox.com/scl/fi/ejrq1o60rgs6n74gf1f3g/ID-Card-For-Spotify.plp?rlkey=na3dtto99kpszm8chytez35s0&st=o83fh93a&dl=1" class="tva-btn"> Download File</a>
+  
+</div>
+  <!-- Brach Timeline-->
+<div class="tva-box">
+  <div class="box-title"> BRANCH TIMELINE</div>
+  <div class="box-description">
+    Express vpn account get free from ( expgen.site ) 
+    1 device per 1 day can generate free Express vpn account
+    <br>
+    (you got 1 account per 1day )
+  </div>
+  <a href="https://expgen.site" class="tva-btn">Visit Site </a>
+  
+</div>
+  <span class="loki">LOKI</span>
+</body>
+<script>
+
+/* ripple at branch position */
+setInterval(() => {
+  const wrap = document.querySelector('.timeline-wrapper');
+  if (!wrap) return;
+
+  const ripple = document.createElement('div');
+  ripple.classList.add('timeline-ripple');
+
+  // branch point (middle of timeline)
+  ripple.style.left = "50%";
+  ripple.style.top = "45px";
+  ripple.style.transform = "translateX(-50%)";
+
+  wrap.appendChild(ripple);
+
+  setTimeout(() => ripple.remove(), 1000);
+}, 6000); // sync with branch animation
+</script>
+</html>
